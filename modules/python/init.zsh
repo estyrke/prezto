@@ -25,12 +25,7 @@ if [[ -s "${local_pyenv::=${PYENV_ROOT:-$HOME/.pyenv}/bin/pyenv}" ]] \
   # Ensure manually installed pyenv is added to path when present.
   [[ -s $local_pyenv ]] && path=($local_pyenv:h $path)
 
-  # pyenv 2+ requires shims to be added to path before being initialized.
-  autoload -Uz is-at-least
-  if is-at-least 2 ${"$(pyenv --version 2>&1)"[(w)2]}; then
-    eval "$(pyenv init --path zsh)"
-  fi
-
+  # Load pyenv into the shell session.
   eval "$(pyenv init - zsh)"
 
 # Prepend PEP 370 per user site packages directory, which defaults to
@@ -110,7 +105,7 @@ if (( $+VIRTUALENVWRAPPER_VIRTUALENV || $+commands[virtualenv] )) \
   # pure prompt because there's some additional logic in that prompt which tries
   # to figure out if a user set this variable and disable the python portion of
   # that prompt based on it which is the exact opposite of what we want to do.
-  export VIRTUAL_ENV_DISABLE_PROMPT=12
+  export VIRTUAL_ENV_DISABLE_PROMPT=20
 
   # Create a sorted array of available virtualenv related 'pyenv' commands to
   # look for plugins of interest. Scanning shell '$path' isn't enough as they
