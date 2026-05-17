@@ -15,6 +15,12 @@ if (( $+commands[nodenv] )); then
   eval "$(nodenv init -)"
 fi
 
+if (( $+commands[fnm] )); then
+  eval "$(fnm env --use-on-cd)"
+fi
+
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+eval "$(starship init zsh)"
